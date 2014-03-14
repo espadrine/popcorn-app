@@ -36,7 +36,11 @@ You will need nodejs and grunt:
 Install the node modules:
 
     $ npm install
-
+    
+Patch a dependancy:
+    
+    $ patch -p1 node_modules/moviedb/node_modules/superagent/index.js superagent-fix-node-webkit.patch
+    
 Build with:
 
     $ grunt nodewkbuild
@@ -50,21 +54,6 @@ grunt:
 You can also build for all platforms with:
 
     $ grunt nodewkbuild --platforms=all
-
-## Any problem?
-
-### Regarding superagent dependency
-Due to [wrong browser verification](https://github.com/visionmedia/superagent/issues/95) on a dependency, this hard fix must be applied.
-Replace `node_modules/moviedb/node_modules/superagent/index.js` contents with:
-```javascript
-// if (typeof window != 'undefined') {
-//   module.exports = require('./lib/superagent');
-// } else if (process.env.SUPERAGENT_COV) {
-//   module.exports = require('./lib-cov/node');
-// } else {
-  module.exports = require('./lib/node');
-// }
-```
 
 ### Regarding Video, MP4 H264 Playback
 - Info: https://github.com/rogerwang/node-webkit/wiki/Support-mp3-and-h264-in-video-and-audio-tag
